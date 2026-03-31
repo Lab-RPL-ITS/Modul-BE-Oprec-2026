@@ -1,8 +1,8 @@
-# Modul-Oprec-BE-2025
+# Modul-Oprec-BE-2026
 
 ## Description
 
-Modul Pembelajaran untuk Sesi Materi Open Recruitment Administrator Laboratorium Rekayasa Perangkat Lunak 2025.
+Modul Pembelajaran untuk Sesi Materi Open Recruitment Administrator Laboratorium Rekayasa Perangkat Lunak 2026.
 
 ## Authors
 

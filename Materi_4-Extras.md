@@ -21,7 +21,6 @@
     - [Swagger (OpenAPI)](#swagger-openapi)
     - [Postman](#postman)
   - [Tutorial Postman](#tools-dokumentasi)
-- [Tugas](#tugas)
 
 ## Arsitektur Codebase
 Sebelumnya kita telah membuat aplikasi Go yang lebih terstruktur. Struktur tersebut memisahkan beberapa implementasi sehingga kode yang ditulis lebih rapi. Sejatinya, tidak ada struktur / arsitektur yang secara resmi dinyatakan oleh para developer Golang. Anda bisa membuat sendiri struktur yang seperti apa yang nyaman untuk dipakai. Selain itu, ada beberapa referensi arsitektur yang mungkin tidak asing di telinga kita seperti *Onion Architecture*, *Model-View-Controller (MCV)*, *Clean Architecture*, *Event-Driven Architecture* dan lain-lain. Pada modul kali ini kita akan membahas terkait *Clean Architecture*. 
@@ -39,82 +38,75 @@ Sebelumnya kita telah membuat aplikasi Go yang lebih terstruktur. Struktur terse
 - Independen terhadap elemen eksternal apa pun, Alur bisnis seharusnya tidak tahu tentang dunia luar.
 
 #### Implementasi Clean Architecture
-Kita akan mencoba mengimplementasikan **Clean Architecture** yang umum dipakai pada bahasa pemrograman ``Golang``. Pada arsitektur ini, aplikasi akan dibagi menjadi beberapa bagian sesuai dengan struktur folder aplikasi.
+
+Berikut adalah salah satu contoh project yang mengimplementasikan **Clean Architecture** menggunakan bahasa pemrograman Golang. Pada arsitektur ini, aplikasi akan dibagi menjadi beberapa bagian sesuai dengan struktur directory aplikasi.
+
+
+```
+.
+├── internal/
+│   ├── application/
+│   │   ├── request/
+│   │   ├── response/
+│   │   └── service/
+│   ├── domain/
+│   │   ├── identity/
+│   │   ├── port/
+│   │   ├── refresh_token/
+│   │   ├── shared/
+│   │   └── user/
+│   ├── infrastructure/
+│   │   ├── adapter/
+│   │   └── database/
+│   └── presentation/
+│       ├── controller/
+│       ├── message/
+│       ├── middleware/
+│       └── route/
+├── command/
+├── platform/
+├── assets/
+├── logs/
+├── .env.example
+├── go.mod
+├── main.go
+└── README.md
+```
+
+Masing masing directory pada directory ./internal bertanggung jawab pada satu layer dalam Clean Architecture. Berikut jika divisualisasikan.
 
 <p align="center">
-  <img src="image/Materi_4-Extras/4-2.png">
+<img src="image/Materi_4-Extras/diagram-arsitektur.png">
 </p>
 
-Penjelasan tiap-tiap folder :
-- **config**
-Folder ini digunakan untuk kode terkait konfigurasi, contohna seperti konfigurasi database, SMTP Email, dan sebagainya.
-- **controller**
-Folder ini digunakan untuk kode terkait controller, controller adalah bagian dari program yang berfungsi menerima request dan memberikan response kepada *client*.
-- **dto**
-Folder ini digunakan untuk kode terkait dto, dto atau data transfer object adalah placeholder atau wadah suatu objek yang digunakan untuk menampung data request dan response
-- **entity**
-Folder ini digunakan untuk kode terkait entitas/model pada program.
-- **middleware**
-Folder ini digunakan untuk kode terkait middleware. Middleware adalah perangkat lunak yang menengahi suatu operasi. Maksudnya disini adalah middleware bertindak sebagai perantara antara berbagai komponen perangkat lunak, seperti server, aplikasi,i yang memungkinkan mereka berkomunikasi dan berinteraksi secara efisien. Fungsi middleware ini biasanya meliputi pengelolaan permintaan HTTP, otentikasi pengguna, pengolahan pesan, dan masih banyak lagi. Dengan adanya folder khusus untuk middleware dalam proyek perangkat lunak, para pengembang dapat dengan mudah mengatur dan mengelola middleware yang diperlukan untuk aplikasi mereka. Ini membantu meningkatkan skalabilitas, keamanan, dan kinerja aplikasi dengan lebih baik. Middleware juga dapat membantu dalam implementasi logika bisnis, pemantauan error, dan penanganan perubahan data.
-- **repository**
-Folder ini digunakan untuk kode terkait repository. Repository adalah lapisan yang berhubungan langsung dengan database.
-- **routes**
-Folder ini digunakan untuk kode terkait routing.
-- **service**
-Folder ini digunakan untuk kode terkait service. Service adalah lapisan yang berhubungan dengan logika/alur bisnis aplikasi.
-- **utils**
-Folder ini digunakan untuk kode terkait utilitas lainnya, contohnya seperti kode untuk perhitungan yang akan digunakan di banyak package lainnya.
+Dalam implementasi ini terdapat beberapa layer, yaitu:
 
-Alur aplikasi kita akan seperti ini :
+#### 1. Domain Layer 
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/79066982/222706937-6cbb15e9-3dd3-413b-b9a1-f8bbdfadf96d.png" width="80%" height="40%">
-</p>
+Layer ini merupakan inti dari aplikasi yang murni berisi aturan bisnis inti. Layer ini bersifat independen, tidak bergantung pada layer apapun dan tidak tahu apapun soal detail teknis implementasi seperti dari jenis database yang digunakan, dan lain lain. Pada sturktur project, implementasi berada di `./internal/domain`: 
+- `user/` & `refresh_token/`: Berisi Entity yang mendefinisikan struktur data utama beserta aturan bisnisnya. Selain itu terdapat Domain Service untuk logika bisnis, dan Repository Interface yang menjadi seperti aturan wajib bagaimana penyimpanan datanya atau pengambilan datanya nanti.
+- `port/`: Berisi interfaces yang mendefinisikan aturan untuk layanan eksternal 
+- `identity/` dan `shared/`: Berisi Value Objects yang mana berupa struktur data standar yang mendukung entity.
 
-Dapat dilihat bahwa tiap lapisan menimbulkan keterkaitan (dependensi) pada lapisan lainnya di bawahnya. Hal ini dapat dilakukan dengan istilah *dependency injection*. Berikut adalah contoh dependency injection di golang yang terdapat pada repository, service, dan controller.
+#### 2. Application Layer 
+Layer ini mendefinisikan fitur-fitur atau use case yang dimiliki oleh aplikasi. Layer berfungsi sebagai koordinator dan orkestrator yang mana sering kali implementasi aslinya berada pada Infrastructure layer. Layer ini hanya memiliki dependensi ke Domain Layer. Pada sturktur project, implementasi berada di `./internal/application`:
+- `service/`: Berisi Use Cases dari aplikasi. File ini mengorkestrasi langkah-langkah seperti validasi data, memanggil fungsi hash, dan memanggil perintah simpan ke database.
+- `request/`dan `response/`: Berisi DTO (Data Transfer Object). Ini adalah struktur data yang digunakan untuk membawa input dari user menuju Service, dan membawa output dari Service kembali ke pengguna.
 
-**Repository**
-```go
-type userRepository struct {
-  db *gorm.DB
-}
+#### 3. Presentation Layer 
+Layer ini bertugas sebagai antarmuka aplikasi ke user atau entry point dari aplikasi. Layer in bertugas untuk mengubah data json dari request body menjadi object yang nanti digunakan oleh Application Layer. Layer ini dapat memiliki dependensi ke Application layer dan Infrastructure Layer. Pada sturktur project, implementasi berada di  `./internal/presentation`:
+- `route/` dan `middleware/`: Menangani routing URL HTTP dan interceptor seperti autentikasi token atau konfigurasi CORS.
+- `controller/`: Menerima HTTP request, mengekstrak body JSON menjadi DTO request, memanggil fungsi di Application Service, dan memberikan HTTP response.
+- `message/`: Beriski const untuk pesan yang bakal dikirim kembali ke Client
 
-func NewUserRepository(db *gorm.DB) UserRepository {
-  return &userRepository{
-    db: db,
-  }
-}
-```
+#### 4. Infrastructure Layer
+Layer ini berkomunikasi langsung dengan database, payment gateway, cloud storage, dan lain lain. Tugas utamanya adalah memberikan implementasi kode untuk memenuhi aturan Interface yang sudah didefinisikan oleh Domain Layer.
+Pada sturktur project, implementasi berada di `./internal/infrastructure`
+- `database/`: Berisi implementasi dari operasi database yang aman mengimplementasikan interface pada Domain Layer. 
+- `adapter/`: Berisi implementasi dari layanan eksternal, sebagai contoh folder `encryption/aes.go` yang berisi kode algoritma AES untuk memenuhi aturan interface Port dari Domain Layer.
 
-**Service**
-```go
-type userService struct {
-  userRepo repository.UserRepository
-}
+Kalian dapat mengakses implementasi secara lengkap dari project structure tersebut pada repository yang ada di link berikut https://github.com/Lab-RPL-ITS/go-clean-architecture
 
-func NewUserService(ur repository.UserRepository) UserService {
-  return &userService{
-    userRepo: ur,
-  }
-}
-```
-
-**Controller**
-```go
-type userController struct {
-  jwtService  service.JWTService
-  userService service.UserService
-}
-
-func NewUserController(us service.UserService, jwt service.JWTService) UserController {
-  return &userController{
-    jwtService:  jwt,
-    userService: us,
-  }
-}
-```
-
-Logikanya adalah **userService** memerlukan **userRepo**, maka saat membuat **userService**, kita akan memasukkan **userRepo** sebagai parameternya, **userRepo** juga dibuat sebagai entitas di dala userService. Berlaku juga untuk controller terhadap service. Untuk memahami lebih lengkapnya terkait *Clean Architecture*, kalian bisa melihat Repository yang ada di link berikut https://github.com/Lab-RPL-ITS/go-clean-architecture  
 
 ## Automation Test
 
@@ -130,50 +122,48 @@ Suatu kultur dalam pengembangan aplikasi yang mengaplikasikan automation test pa
 
 Unit Test adalah testing yang fokusnya hanya pada 1 unit saja, sehingga tidak perlu memperhatikan hasil kolaborasi dengan kode lain karena ada bagiannya sendiri nanti. Pada test ini, kita cukup fokus secara spesifik pada 1 bagian sehingga bila terjadi kegagalan kita langsung mengetahui bahwa masalahnya ada pada bagian tersebut.
 
-Berikut adalah contoh implementasi Unit Test pada API dengan tech stack Laravel (PHP) pada fitur sinkronisasi dari tabel `medical_test_statistics` yang menyimpan statistik berkaitan dengan isi dari entitas MedicalTest,
+Berikut adalah contoh implementasi Unit Test pada API Laravel (PHP) untuk menguji business logic pada fitur registrasi pengguna. Pengujian ini berfokus pada validasi alur pembuatan user dan interaksi dengan dependency seperti repository dan service pendukung.
 
 ```php
-class MedicalTestSyncTest extends SQLiteTestCase
+public function test_register(): void
 {
-  use MigrateAnalyticsDatabase;
+    // Arrange
+    $userRepo = Mockery::mock(UserRepository::class);
+    $hasher = Mockery::mock(Hasher::class);
 
-  protected Collection $cities;
+    $input = [
+        'email' => 'test@gmail.com',
+        'password' => '123456'
+    ];
 
-  protected Model $subdistrict;
+    $userRepo->shouldReceive('findByEmail')
+        ->once()
+        ->with('test@gmail.com')
+        ->andReturn(null);
 
-  protected Collection $users;
+    $hasher->shouldReceive('hash')
+        ->once()
+        ->with('123456')
+        ->andReturn('hashed_password');
 
-  public function setUp(): void
-  {
-    parent::setUp();
+    $userRepo->shouldReceive('create')
+        ->once()
+        ->with([
+            'email' => 'test@gmail.com',
+            'password' => 'hashed_password'
+        ])
+        ->andReturn((object) [
+            'id' => 1,
+            'email' => 'test@gmail.com'
+        ]);
 
-    $this->subdistrict = Subdistrict::factory()->create();
-    $this->users = User::factory(5)->create([
-      'subdistrict_id' => $this->subdistrict->id,
-    ]);
-    $status = MedicalTest::getStatesFor('status')->toArray();
+    $service = new AuthService($userRepo, $hasher);
 
-    $this->users->each(function ($user, $index) use ($status) {
-      MedicalTest::factory()->create([
-          'user_id' => $user->id,
-          'status' => $status[$index % 3],
-      ]);
-    });
-  }
+    // Action
+    $result = $service->register($input);
 
-  /* @test */
-  public function test_medical_test_sync(): void
-  {
-    (new MedicalTestAnalyticService())->sync();
-    $this->assertDatabaseHas('medical_test_statistics', [
-      'city_id' => $this->subdistrict->city->id,
-      'city_name' => $this->subdistrict->city->name,
-      'total_students' => $this->users->count(),
-      'total_unverified' => 2,
-      'total_invalid' => 2,
-      'total_valid' => 1,
-    ]);
-  }
+    // Assert
+    $this->assertEquals('test@gmail.com', $result->email);
 }
 ```
 
@@ -242,6 +232,7 @@ Berikut adalah contoh implementasi Integration / Feature Test pada API dengan te
 ```php
 class AnalyticMedicalTestTest extends BaseBackOfficeTestCase
 {
+    // Arrange
     use MigrateAnalyticsDatabase;
 
     protected function getResourcePath(): string
@@ -259,7 +250,10 @@ class AnalyticMedicalTestTest extends BaseBackOfficeTestCase
     /* @test */
     public function test_index_analytic_medical_tests(): void
     {
+        // Action
         $this->response = $this->withToken($this->token)->getJson($this->getEndpoint());
+        
+        // Assert
         $this->assertApiCollection($this->model->toArray());
     }
 }
@@ -533,138 +527,3 @@ Sebenarnya masih ada banyak lagi fitur-fitur yang tersedia di Postman. Berikut a
   Mock Servers memungkinkan kita untuk membuat versi simulasi (mock) dari API mereka. Pengguna dapat mendefinisikan respons untuk permintaan tertentu tanpa perlu memiliki backend yang sebenarnya. Fitur ini berguna dalam pengembangan frontend atau konsumen API ketika backend belum sepenuhnya siap. Mempercepat proses pengembangan dengan memungkinkan tim frontend dan backend bekerja secara paralel.
 
 - Dan lain-lain
-
-## Tugas
-
-Guild master ingin menonton film dan series, tapi kebingungan untuk memilih film dan series apa yang bagus untuk ditonton. Oleh karena itu, guild master menugaskan para heroes untuk membuat application programming interface (API) untuk sebuah aplikasi review film dan series yang ia namakan ReviewPiLem (RPL). Selain itu, ia juga menugaskan para heroes untuk membuat dokumentasi API agar dapat digunakan oleh tim front end. 
-
-
-### Ketentuan
-
-Terdapat 3 jenis pengguna, yaitu:
-
-* `admin` - administrator aplikasi dengan otoritas tertinggi
-* `user` - pengguna aplikasi yang memiliki akun dan melakukan login
-* `guest` - pengguna aplikasi yang tidak memiliki akun atau tidak melakukan login
-
-Setiap `admin` dapat melakukan semua hal yang dapat dilakukan oleh `user`, dan setiap `user` dapat melakukan semua hal yang dapat dilakukan oleh `guest`. Akun admin tidak dibuat melalui proses registrasi, melainkan dibuat menggunakan seeder.
-
-
-#### **Fitur Admin**
-
-
-1. **Menambahkan genre**
-
-   Genre setidaknya memiliki atribut nama dan bisa saja dibuat melalui seeder, namun admin mempunya otoritas untuk menambah genre baru dan mengedit genre. Genre tidak bisa dihapus.
-
-2. **Menambahkan film**
-
-   Film (atau series) setidaknya memiliki detail informasi seperti berikut:
-
-   
-   1. Judul
-   2. Sinopsis
-   3. Gambar (bisa lebih dari satu)
-   4. Genre (bisa lebih dari satu)
-   5. Status penayangan: `not_yet_aired`, `airing`, atau `finished_airing`
-   6. Total episode
-   7. Tanggal rilis
-
-
-**Penjelasan status:**
-
-* `not_yet_aired`, film atau series belum ditayangkan
-* `airing`, film atau series sedang dalam penayangan
-* `finished_airing`, film atau series sudah selesai ditayangkan
-
-
-#### **Fitur User**
-
-
-1. **Register dan Login**
-   * Akun `user` dapat dibuat melalui registrasi untuk membuat akun.
-   * `user` yang sudah memiliki akun dapat melakukan login.
-
-2. **Memasukan film ke dalam list**
-
-   List adalah daftar film yang dimiliki setiap user dan bersifat publik. Ketika suatu film sudah masuk ke dalam list, film tersebut tidak dapat dikeluarkan dari list, namun hanya dapat dipindah-pindah saja statusnya. Terdapat 5 jenis list film:
-   * `plan_to_watch` - user berencana untuk menonton film/series ini
-   * `watching` - user sedang menonton film/series ini
-   * `completed` - user sudah menonton film/series ini
-   * `on_hold` - user sebelumnya menonton film/series ini, namun berhenti di tengah-tengah sebelum film/series selesai dengan maksud akan melanjutkannya di kemudian hari
-   * `dropped` - user sebelumnya menonton film/series ini, namun berhenti di tengah-tengah sebelum film/series selesai dan tidak berencana melanjutkannya di kemudian hari
-
-   Film dengan status penayangan `not_yet_aired` hanya dapat dimasukkan ke list dengan status `plan_to_watch`.
-
-
-
-3. **Profil**
-
-   Setiap user yang memiliki akun memiliki profil yang dibuat ketika registrasi akun dan dapat dilihat oleh user lain termasuk guest. Data pada profil dapat diubah oleh user itu sendiri. Ketika melihat profil seorang user, paling tidak terdapat data berikut:
-
-   
-   1. Username
-   2. Display name
-   3. Bio
-   4. Daftar film/series dalam list user
-
-
-
-4. **Melakukan review**
-   * Review terdiri dari rating (berupa bilangan bulat dari 1 hingga 10) dan komentar, serta dapat dibuat, diperbarui, dan dihapus.
-   * User **hanya** dapat dapat me-*review* film yang dimasukkan ke dalam list. User **hanya** dapat me-*review* film yang ada dalam list **selain** `plan_to_watch`. Film yang telah di *review* tidak dapat dimasukkan ke dalam list `plan_to_watch`.
-   * Sebagai konsekuensi, film dengan status `not_yet_aired` (belum ditayangkan) tidak dapat di-review.
-   * Review film/series bersifat publik.
-
-
-
-5. **Like/dislike review**
-   * Review dapat diberi *like* atau *dislike* oleh `user` lain, termasuk oleh pembuat review itu sendiri
-   * User dapat melakukan *like* atau *dislike* suatu review, namun tidak keduanya secara bersamaan
-   * Jika user mengubah reaksinya terhadap review, misalnya dari *like* ke *dislike*, maka *like* sebelumnya akan otomatis dihapus, dan diganti menjadi *dislike* (begitu pula sebaliknya).
-
-
-#### Fitur Guest
-
-
-1. **Melihat daftar film**
-
-   Daftar film setidaknya menampilkan informasi dasar dari film tersebut, seperti:
-   * Judul
-   * Status penayangan
-   * Total episode
-   * Tanggal rilis
-   * Average rating dari review film hingga ketelitian dua di belakang koma.
-
-2. **Melihat detail film**
-
-   Detail film memuat seluruh informasi mengenai suatu film, termasuk average rating.
-
-3. **Melihat profil dan list user lain, termasuk review yang dibuat user tersebut**
-
-4. **Melakukan pencarian film berdasarkan judul**
-
-
-#### Fitur Opsional
-
-Akan lebih baik jika mengimplementasikan fitur-fitur berikut:
-
-
-1. `user` dapat mengatur visibility list filmnya menjadi public atau private
-2. Pagination ketika mendapatkan daftar entitas (misalnya daftar film, review, genre, atau film pada list)
-3. Fitur search yang lebih advanced
-
-Heroes dibebaskan untuk menambah fitur-fitur lain sesuai kreativitas dan kemampuannya masing-masing. Fitur-fitur yang dibuat di luar fitur wajib dapat menjadi nilai tambah, selama fitur-fitur wajib sudah diimplementasikan terlebih dahulu.
-
-
-### Ketentuan Tambahan
-
-* Sama seperti tugas pertama, Heroes dibebaskan untuk memilih tech stack (i.e. database, bahasa pemrograman, dan framework) yang digunakan dalam pengerjaan tugas kedua.
-* Pilihan tools untuk membuat dokumentasi API dibebaskan kepada Heroes.
-* Para heroes diharapkan untuk dapat memberikan justifikasi terkait pemilihan tech stack yang digunakan.
-* Para heroes diwajibkan melakukan upaya semaksimal mungkin untuk membuat aplikasi tidak hanya dapat digunakan (*usable*), namun juga aman (*secure*).
-
-
-### Deliverables
-
-Deliverable yang dikumpulkan berupa kode program dalam repository. Repository wajib di-set publik dan link repository dikirim pada [form ini](https://forms.gle/Rw92mdqJCpD7n8fJ9). Seluruh hal yang berkaitan tentang penugasan 2 seperti link dokumentasi API dicantumkan di dalam repository.

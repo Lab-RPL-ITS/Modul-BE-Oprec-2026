@@ -22,8 +22,8 @@
       - [Entry-Level Backend Developer](#entry-level-backend-developer)
       - [Mid-Level Backend Developer](#mid-level-backend-developer)
       - [Senior / Lead Backend Developer](#senior--lead-backend-developer)
-    - [Admin RPL Angkatan 2019](#admin-rpl-angkatan-2019)
-    - [Admin RPL Angkatan 2020 - 2021 (Aktif)](#admin-rpl-angkatan-2020---2021-aktif)
+    - [Admin RPL Angkatan 2019 - 2021](#admin-rpl-angkatan-2019---2021)
+    - [Admin RPL Angkatan 2022 - 2023 (Aktif)](#admin-rpl-angkatan-2022---2023-aktif)
 
 ## Definisi
 
@@ -211,7 +211,7 @@ Selain itu, ada berbagai spesialisasi yang bisa diikuti oleh Backend Developer, 
 
 Nah terus gimana sih karir yang udah ditempuh para admin backend di lab RPL ini?
 
-### Admin RPL Angkatan 2019
+### Admin RPL Angkatan 2019 - 2021
 
 - Pramudya Tiandana Wisnu Gautama (**Wisnu**)
 
@@ -241,14 +241,6 @@ Nah terus gimana sih karir yang udah ditempuh para admin backend di lab RPL ini?
   - Lead Backend Developer Intern di Filinmovie (2023)
   - Quality Assurance di PPDB Jatim 2023 (2023)
 
-Beberapa dari kalian mungkin ngga asing denger nama mas-mbaknya. Seluruh mas-mbak diatas merupakan alumni admin backend lab RPL yang udah lulus dan sedang menempuh karirnya masing-masing.
-
-Eits, tunggu bentar. Para admin backend lab RPL yang masih aktif ngga kalah jago loh. Ada siapa aja tuh?
-
-### Admin RPL Angkatan 2020 - 2021 (Aktif)
-
-Jadi admin backend di lab RPL ini yang masih aktif ada :
-
 - M. Naufal Badrutammam (**Cakno**)
 
   <img src="image/Materi_1-Tentang_Backend/1708455221515.png" width="300">
@@ -275,6 +267,14 @@ Jadi admin backend di lab RPL ini yang masih aktif ada :
   - Backend Developer TD-GCS di Bayucaraka ITS (2023)
   - Software Engineer Internship di PT HM Sampoerna (2024 - Sekarang)
   - Senior Backend Developer TD-GCS di Bayucaraka ITS (2024 - Sekarang)
+
+Beberapa dari kalian mungkin ngga asing denger nama mas-mbaknya. Seluruh mas-mbak diatas merupakan alumni admin backend lab RPL yang udah lulus dan sedang menempuh karirnya masing-masing.
+
+Eits, tunggu bentar. Para admin backend lab RPL yang masih aktif ngga kalah jago loh. Ada siapa aja tuh?
+
+### Admin RPL Angkatan 2022 - 2023 (Aktif)
+
+Jadi admin backend di lab RPL ini yang masih aktif ada :
 
 - Keanu Fortuna Taufan (**Keanu**)
 

@@ -57,9 +57,6 @@
         - [Cloud-Based \& Enterprise Tools](#cloud-based--enterprise-tools)
   - [Pemilihan](#pemilihan)
   - [Implementasi](#implementasi)
-  - [Tugas](#tugas)
-    - [Ketentuan:](#ketentuan)
-    - [Deliverables](#deliverables)
 
 ## Definisi & Fungsi
 
@@ -720,49 +717,3 @@ Walaupun kedua potongan kode di atas terlihat berbeda, pada dasarnya alur kerjan
 
 Setelah koneksi terbentuk, barulah kita dapat berinteraksi dengan database sesuai dengan izin atau permission yang dimiliki oleh user yang kita gunakan. Interaksi tentunya dilakukan melalui query seperti yang sudah kita pelajari sebelumnya. Nah, sekarang saatnya kalian melakukan eksplorasi lebih dan mempraktekkan semua yang sudah dipelajari disini, selamat mencoba!
 
-## Tugas
-
-Buat sebuah aplikasi yang menggunakan database. Jenis aplikasi, studi kasus, dan platform bebas, misalnya:
-
-- ✅ CLI app yang menyimpan data di MS SQL
-- ✅ Webapp/API dengan MongoDB + Redis cache
-- ✅ Aplikasi Android dengan SQLite
-- ✅ Dan lain-lain
-
-### Ketentuan:
-1. Gunakan minimal satu database.
-    - Bisa memakai relational (MySQL, PostgreSQL, dsb.) atau non-relational (MongoDB, Redis, dsb.).
-    - Bisa mix-and-match database (misalnya, MongoDB + Redis).
-    - Jangan overengineering—pilih database sesuai kebutuhan aplikasi.
-
-2. Gunakan bahasa pemrograman & framework bebas.
-    - Bisa pakai atau tidak pakai framework.
-    - Jelaskan alasan memilih database dan framework yang digunakan.
-
-3. Buat struktur database & diagramnya:
-    - Jika pakai relational database, buat ERD.
-    - Jika pakai non-relational database, buat diagram yang menggambarkan data & relasinya.
-    - Jika database schemaless, jelaskan karakteristik datanya.
-
-4. Buat fitur-fitur aplikasi:
-    - Minimal harus ada operasi CRUD (Create, Read, Update, Delete).
-    - Fitur lainnya bebas & sekreatif mungkin.
-
-5. Justifikasi pemilihan database:
-    - Jelaskan kenapa memilih tipe database tertentu dan bukan tipe lainnya.
-    - Misalnya:
-      - "Saya memilih PostgreSQL karena aplikasinya butuh transaksi kompleks dengan ACID compliance."
-      - "Saya memakai MongoDB karena struktur datanya schemaless dan cocok untuk karakteristik data yang dinamis."
-      - "Saya menggunakan Redis untuk caching karena butuh akses cepat ke data yang sering diambil."
-
-7. Gunakan fitur penting dari database yang dipilih. Contohnya:
-    - Relational Database: Ada query yang butuh JOIN.
-    - Document Database (MongoDB): Ada data yang dinamis.
-    - Search Engine Database (ElasticSearch, Solr, pgVector): Ada fitur pencarian kompleks yang tidak bisa ditangani full-text search biasa.
-
-
-### Deliverables
-
-Deliverable yang dikumpulkan berupa kode program dalam repository. Apabila terdapat dokumen pendukung (seperti ERD), lampirkan di dalam repository. Repository wajib di-set publik dan link repository dikirim pada form pengumpulan berikut [PENGUMPULAN](https://links.labse.id/go/PengumpulanTugas1BE).
-
-Buat aplikasimu seunik dan sekreatif mungkin! 😁👍

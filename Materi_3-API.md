@@ -923,7 +923,10 @@ Karena dampak negatifnya yang cukup berat, maka database biasanya dipergunakan u
 
 Nah, opsi yang lebih baik dan lebih sering digunakan adalah menyimpan file pada Server Storage atau Filesystem dari Server itu sendiri. Apabila menggunakan cara ini, maka database akan kita gunakan untuk menyimpan file path tempat suatu file spesifik disimpan pada filesystem server kita.
 
-Dengan cara ini, API kita tinggal mengupload file ke server dan menyimpan file path tempat file berada pada database. Kemudian bila nanti file perlu untuk ditampilkan, API kita tinggal melakukan read terhadap file berdasarkan file path yang disimpan di database.
+Dengan cara ini, API kita tinggal mengupload file ke server dan menyimpan file path tempat file berada pada database. Kemudian bila nanti file perlu untuk ditampilkan, API kita tinggal melakukan read terhadap file berdasarkan file path yang disimpan di database. Berikut visualisasi implementasinya
+
+![Sequence Diagram](image/Materi_3-API/seq-diagram-server-storage.png)
+
 
 Kelebihan dari cara ini adalah read / write yang lebih cepat dan harga yang lebih murah dari database. Tetapi untuk cara ini, kita harus menyiapkan server yang cukup besar dari segi storage agar bisa menampung file yang cukup banyak dan harus selalu melakukan maintenance, menjaga keamanan, dan mengurus skalabilitas dari server kita sendiri.
 
@@ -947,7 +950,10 @@ if err != nil {
 
 Opsi terakhir yang juga sering digunakan adalah menggunakan Cloud Storage untuk menyimpan file-file kita. Contoh service yang tersedia dan sering digunakan seperti Amazon S3, Google Buckets, dan Cloudinary. Nantinya, yang kita simpan pada database kita bisa berupa id dari file pada cloud storage atau langsung berupa link yang dapat digunakan untuk mengakses suatu file spesifik pada cloud storage kita.
 
-Dengan cara ini, API kita akan melakukan upload ke Cloud Storage yang kita telah siapkan dan menyimpan ID / Linknya untuk disimpan pada database. Untuk menampilkan file, kita bisa mendapatkan file melalui Cloud Storage berdasarkan yang kita simpan pada database tadi.
+Dengan cara ini, API kita akan melakukan upload ke Cloud Storage yang kita telah siapkan dan menyimpan ID / Linknya untuk disimpan pada database. Untuk menampilkan file, kita bisa mendapatkan file melalui Cloud Storage berdasarkan yang kita simpan pada database tadi. Berikut visualisasinya
+
+![Sequence Diagram](image/Materi_3-API/seq-diagram-cloud-storage.png)
+
 
 Kelebihan dari cara ini adalah harga yang cenderung lebih murah daripada membeli suatu physical server dengan size fix karena cloud storage biasanya menyediakan harga yang sesuai dengan pemakaian terkini, sehingga cara ini cocok apabila kita ingin menggunakan server yang tidak terlalu besar dalam segi storage. Selain itu, untuk masalah keamanan, skalabilitas, dan maintenance juga akan dihandle sepenuhnya oleh pihak mereka sehingga kita tidak perlu pusing mengurusnya.
 
