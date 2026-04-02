@@ -238,8 +238,8 @@ Nah terus gimana sih karir yang udah ditempuh para admin backend di lab RPL ini?
 
   - Mid-Level Backend Developer Intern di MyITS Archive (2023)
   - Backend Developer TD-GCS di Bayucaraka ITS (2023)
-  - Software Engineer Internship di PT HM Sampoerna (2024 - Sekarang)
-  - Senior Backend Developer TD-GCS di Bayucaraka ITS (2024 - Sekarang)
+  - Software Engineer Internship di PT HM Sampoerna (2024)
+  - Senior Backend Developer TD-GCS di Bayucaraka ITS (2024)
 
 Beberapa dari kalian mungkin ngga asing denger nama mas-mbaknya. Seluruh mas-mbak diatas merupakan alumni admin backend lab RPL yang udah lulus dan sedang menempuh karirnya masing-masing.
 
@@ -255,19 +255,21 @@ Jadi admin backend di lab RPL ini yang masih aktif ada :
 
   - Backend Developer di SPMB Jatim 2025 (2025)
   - Software Engineer di Avalon AI Group (PT. Automasi Visi Analitika Optima) (2025)
-  - Backend Developer di SPMB Jatim 2026 (2026)
+  - Lead Backend Developer di SPMB Jatim 2026 (2026)
 
 - Aloysius Juan Farrel Lumentut (**Juan**)
 
   <img src="image/Materi_1-Tentang_Backend/juan.jpg" width="300">
 
   - Backend Developer di SPMB Jatim 2025 (2025)
+  - Backend Developer di SPMB Jatim 2026 (2026)
 
 - Fawwas Aldy Nurramdhan Kaisar (**Aldy**)
 
   <img src="image/Materi_1-Tentang_Backend/1707124984733.jpg" width="300">
 
   - Backend Developer di SPMB Jatim 2025 (2025)
+  - Backend Developer di SPMB Jatim 2026 (2026)
 
 - Azka Rizqullah Ramadhani (**Azka**)
 
@@ -279,4 +281,4 @@ Jadi admin backend di lab RPL ini yang masih aktif ada :
 
   <img src="image/Materi_1-Tentang_Backend/arya.jpg" width="300">
 
-  - Backend Developer di SPMB Jatim 2025 (2025)
+  - Backend Developer di SPMB Jatim 2026 (2026)
