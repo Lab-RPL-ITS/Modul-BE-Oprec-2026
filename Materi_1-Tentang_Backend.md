@@ -22,7 +22,7 @@
       - [Entry-Level Backend Developer](#entry-level-backend-developer)
       - [Mid-Level Backend Developer](#mid-level-backend-developer)
       - [Senior / Lead Backend Developer](#senior--lead-backend-developer)
-    - [Admin RPL Angkatan 2019 - 2021](#admin-rpl-angkatan-2019---2021)
+    - [Admin RPL Angkatan 2021](#admin-rpl-angkatan-2019---2021)
     - [Admin RPL Angkatan 2022 - 2023 (Aktif)](#admin-rpl-angkatan-2022---2023-aktif)
 
 ## Definisi
@@ -211,35 +211,8 @@ Selain itu, ada berbagai spesialisasi yang bisa diikuti oleh Backend Developer, 
 
 Nah terus gimana sih karir yang udah ditempuh para admin backend di lab RPL ini?
 
-### Admin RPL Angkatan 2019 - 2021
+### Admin RPL Angkatan 2021
 
-- Pramudya Tiandana Wisnu Gautama (**Wisnu**)
-
-  <img src="image/Materi_1-Tentang_Backend/1708455598061.png" width="300">
-
-  - Lead Software Engineer di MyITSPuspresnas (2023)
-  - Backend Developer Intern di Blibli.com (2022)
-
-- Fairuz Hasna Rofifah (**Hasna**)
-
-  <img src="image/Materi_1-Tentang_Backend/1708455610635.png" width="300">
-
-  - Software Engineer di Samsung R&D Institute Indonesia (2023 - Sekarang)
-  - Backend Engineer Intern di Telkom Indonesia (2022)
-
-- Alexander (**Alex**)
-
-  <img src="image/Materi_1-Tentang_Backend/1708455192360.png" width="300">
-
-  - Senior Backend Developer di PPDB Jatim 2024 (2024)
-  - Backend Engineer Intern di Tokopedia (2023)
-
-- Made Rianja Richo Dainino (**Richo**)
-
-  <img src="image/Materi_1-Tentang_Backend/1708455135329.png" width="300">
-
-  - Lead Backend Developer Intern di Filinmovie (2023)
-  - Quality Assurance di PPDB Jatim 2023 (2023)
 
 - M. Naufal Badrutammam (**Cakno**)
 
@@ -282,6 +255,7 @@ Jadi admin backend di lab RPL ini yang masih aktif ada :
 
   - Backend Developer di SPMB Jatim 2025 (2025)
   - Software Engineer di Avalon AI Group (PT. Automasi Visi Analitika Optima) (2025)
+  - Backend Developer di SPMB Jatim 2026 (2026)
 
 - Aloysius Juan Farrel Lumentut (**Juan**)
 
@@ -292,5 +266,17 @@ Jadi admin backend di lab RPL ini yang masih aktif ada :
 - Fawwas Aldy Nurramdhan Kaisar (**Aldy**)
 
   <img src="image/Materi_1-Tentang_Backend/1707124984733.jpg" width="300">
+
+  - Backend Developer di SPMB Jatim 2025 (2025)
+
+- Azka Rizqullah Ramadhani (**Azka**)
+
+  <img src="image/Materi_1-Tentang_Backend/azka.jpeg" width="300">
+
+  - Backend Developer di SPMB SD Surabaya (2025-2026)
+
+- I Kadek Arya Deva Artana (**Arya**)
+
+  <img src="image/Materi_1-Tentang_Backend/arya.jpg" width="300">
 
   - Backend Developer di SPMB Jatim 2025 (2025)
