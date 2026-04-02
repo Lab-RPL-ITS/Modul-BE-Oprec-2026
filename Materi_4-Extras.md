@@ -105,7 +105,7 @@ Pada sturktur project, implementasi berada di `./internal/infrastructure`
 - `database/`: Berisi implementasi dari operasi database yang aman mengimplementasikan interface pada Domain Layer. 
 - `adapter/`: Berisi implementasi dari layanan eksternal, sebagai contoh folder `encryption/aes.go` yang berisi kode algoritma AES untuk memenuhi aturan interface Port dari Domain Layer.
 
-Kalian dapat mengakses implementasi secara lengkap dari project structure tersebut pada repository yang ada di link berikut https://github.com/Lab-RPL-ITS/go-clean-architecture
+Kalian dapat mengakses implementasi secara lengkap dari project structure tersebut pada repository yang ada di link berikut https://github.com/fawwasaldy/gin-clean-architecture
 
 
 ## Automation Test
@@ -116,7 +116,12 @@ Untuk mencegah hal tersebut, maka kita harus memahami dan mengaplikasikan automa
 
 ![Test Hierarchy](image/Materi_4-Extras/1709046894897.png)
 
-Suatu kultur dalam pengembangan aplikasi yang mengaplikasikan automation test pada keseluruhan codebase disebut TDD (Test Driven Development). Sesuai dengan gambar di atas, Automation Test terdiri dari 3 jenis test yang akan dibahas pada bagian ini.
+Suatu kultur dalam pengembangan aplikasi yang mengaplikasikan automation test pada keseluruhan codebase disebut TDD (Test Driven Development). Dalam praktiknya, penulisan test ini umumnya akan mengikuti pattern AAA (Arrange-Act-Assert), yaitu:
+- Arrange: menyiapkan test data dan mock.
+- Action: menjalankan kode yang akan dites.
+- Assert: mencocokkan output yang keluar dengan output yang diharapkan.
+
+Sesuai dengan gambar di atas, Automation Test terdiri dari 3 jenis test yang akan dibahas pada bagian ini.
 
 ### Unit Test
 
@@ -125,45 +130,54 @@ Unit Test adalah testing yang fokusnya hanya pada 1 unit saja, sehingga tidak pe
 Berikut adalah contoh implementasi Unit Test pada API Laravel (PHP) untuk menguji business logic pada fitur registrasi pengguna. Pengujian ini berfokus pada validasi alur pembuatan user dan interaksi dengan dependency seperti repository dan service pendukung.
 
 ```php
-public function test_register(): void
+class AuthServiceTest extends TestCase
 {
-    // Arrange
-    $userRepo = Mockery::mock(UserRepository::class);
-    $hasher = Mockery::mock(Hasher::class);
+    protected function tearDown(): void
+    {
+        Mockery::close();
+        parent::tearDown();
+    }
 
-    $input = [
-        'email' => 'test@gmail.com',
-        'password' => '123456'
-    ];
+    public function test_register(): void
+    {
+        // Arrange
+        $userRepo = Mockery::mock(UserRepository::class);
+        $hasher = Mockery::mock(Hasher::class);
 
-    $userRepo->shouldReceive('findByEmail')
-        ->once()
-        ->with('test@gmail.com')
-        ->andReturn(null);
-
-    $hasher->shouldReceive('hash')
-        ->once()
-        ->with('123456')
-        ->andReturn('hashed_password');
-
-    $userRepo->shouldReceive('create')
-        ->once()
-        ->with([
+        $input = [
             'email' => 'test@gmail.com',
-            'password' => 'hashed_password'
-        ])
-        ->andReturn((object) [
-            'id' => 1,
-            'email' => 'test@gmail.com'
-        ]);
+            'password' => '123456'
+        ];
 
-    $service = new AuthService($userRepo, $hasher);
+        $userRepo->shouldReceive('findByEmail')
+            ->once()
+            ->with('test@gmail.com')
+            ->andReturn(null);
 
-    // Action
-    $result = $service->register($input);
+        $hasher->shouldReceive('hash')
+            ->once()
+            ->with('123456')
+            ->andReturn('hashed_password');
 
-    // Assert
-    $this->assertEquals('test@gmail.com', $result->email);
+        $userRepo->shouldReceive('create')
+            ->once()
+            ->with([
+                'email' => 'test@gmail.com',
+                'password' => 'hashed_password'
+            ])
+            ->andReturn((object) [
+                'id' => 1,
+                'email' => 'test@gmail.com'
+            ]);
+
+        $service = new AuthService($userRepo, $hasher);
+
+        // Action
+        $result = $service->register($input);
+
+        // Assert
+        $this->assertEquals('test@gmail.com', $result->email);
+    }
 }
 ```
 
